@@ -1,0 +1,183 @@
+/* src/components/Login/Login.module.css */
+
+/* --- Variáveis e Configurações Globais (Opcional) --- */
+:root {
+  --cor-fundo: #8b0000; /* Vermelho escuro/Borgonha */
+  --cor-card-fundo: #ffffff; /* Fundo do card branco */
+  --cor-principal: #007bff; /* Azul padrão do botão (pode ajustar) */
+  --cor-texto-principal: #333;
+  --cor-texto-secundario: #666;
+  --cor-input-borda: #ccc;
+  --cor-amarelo-guardiao: #ffc107; /* Amarelo forte do GUARDIÃO 360° */
+  --cor-botao-fundo: #4682b4; /* Azul marinho/aço para o botão */
+}
+
+/* --- Container Principal (Tela Cheia) --- */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--cor-fundo);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* --- Card de Login (Lado Esquerdo) --- */
+.loginCard {
+  background-color: var(--cor-card-fundo);
+  padding: 40px 30px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px; /* Largura do formulário */
+  margin-right: 50px; /* Espaço entre o card e o logo */
+}
+
+.loginCard h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--cor-texto-principal);
+  text-align: center;
+}
+
+.acessoRestrito {
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* --- Formulário e Campos --- */
+.form label {
+  display: block;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-input-borda);
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  background-color: #f7f7f7; /* Levemente cinza, como na imagem */
+}
+
+/* --- Lembre-me --- */
+.lembrarMe {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.lembrarMe input[type="checkbox"] {
+  margin-right: 8px;
+  /* Estilização para replicar o checkbox customizado da imagem */
+  width: 16px; 
+  height: 16px; 
+  border: 1px solid #999;
+  appearance: none; /* Esconde o padrão */
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+}
+
+.lembrarMe input[type="checkbox"]:checked {
+  background-color: var(--cor-principal); /* Cor de checado, ajuste se quiser */
+  border-color: var(--cor-principal);
+}
+/* Estilize o checkmark se necessário com :after ou imagem de fundo */
+
+
+/* --- Botão Entrar --- */
+.botaoEntrar {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--cor-botao-fundo); /* O botão na imagem é um azul escuro */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+  font-size: 16px;
+  /* Efeito de sombra e gradiente pode ser adicionado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.botaoEntrar:hover {
+  background-color: #38719c;
+}
+
+/* --- Link Esqueci a Senha --- */
+.linkEsqueciSenha {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: var(--cor-botao-fundo); /* Use a cor do botão ou a cor principal */
+  text-decoration: none;
+  margin-top: 15px;
+}
+
+.linkEsqueciSenha:hover {
+  text-decoration: underline;
+}
+
+/* --- Lado Direito (Logo e Título) --- */
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logoPlaceholder {
+  /* Substitua esta div pela tag <img> real */
+  width: 200px; 
+  height: 200px;
+  background-color: #a020f0; /* Cor de teste para o placeholder */
+  /* Remove a linha abaixo ao usar a imagem real */
+  display: none; 
+}
+
+.tituloGuardiao {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--cor-amarelo-guardiao);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
+  margin-top: 20px;
+  letter-spacing: 2px;
+}
+
+/* --- Media Query para Responsividade (Opcional, mas recomendado) --- */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+  
+  .loginCard {
+    margin-right: 0;
+    margin-bottom: 30px;
+    max-width: 100%;
+  }
+
+  .logoContainer {
+    /* Pode reduzir o tamanho do logo em telas pequenas */
+  }
+  
+  .tituloGuardiao {
+    font-size: 30px;
+  }
+}

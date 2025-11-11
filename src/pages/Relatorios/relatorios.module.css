@@ -1,0 +1,261 @@
+/* pages/Relatorios/relatorios.module.css */
+
+/* --- Fundo (Classe global 'grayBackground' já deve cobrir) --- */
+/* .mainContent { background-color: #f4f7fa; } */
+
+/* --- Título (Classe global 'mainHeader h1' já deve cobrir) --- */
+/* .mainContent h1 { ... } */
+
+/* --- Botão Centralizado --- */
+.buttonContainer {
+  text-align: center;
+  margin: -15px 0 30px 0;
+}
+
+/* Estilo do botão "Gerar Relatórios +" */
+.btnAddUser {
+  background: linear-gradient(to bottom, #1a80ff, #0d70ff);
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(13, 112, 255, 0.4);
+  text-transform: none;
+  transition: all 0.3s ease;
+  color: white; /* Adicionado para garantir a cor do texto */
+  cursor: pointer; /* Adicionado para garantir o cursor */
+}
+.btnAddUser:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 112, 255, 0.5);
+}
+.btnAddUser i {
+  margin-right: 10px;
+}
+
+/* --- Container de Filtros --- */
+.filtersContainerReports {
+  background: #e8e8e8;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* <--- ALTERADO DE 4 PARA 3 */
+  gap: 15px 20px;
+}
+
+.filterGridBottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas (para alinhar com o grid de cima) */
+  gap: 15px 20px;
+  margin-top: 15px; /* Adiciona um espaço entre as linhas de filtro */
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+}
+.filterItem label {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+.filterItem input[type="text"],
+.filterItem select,
+ .filterItem input[type="date"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  background: #fafafa;
+}
+
+/* --- Botões de Exportação --- */
+.exportButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.btnExport {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.btnExport i {
+  margin-right: 8px;
+}
+
+.btnExport.btnPdf {
+  background-color: #1a73e8; /* Azul */
+}
+.btnExport.btnPdf:hover {
+  background-color: #105cba;
+}
+
+.btnExport.btnCsv {
+  background-color: #313d4f; /* Cinza escuro */
+}
+.btnExport.btnCsv:hover {
+  background-color: #222b38;
+}
+
+/* --- Container de Métricas --- */
+.metricsContainer {
+  background: #e8e8e8;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+.metricsContainer h4 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.metricItem label {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+  margin-left: 10px;
+}
+
+/* Checkbox customizado (Atenção aqui, o ::after precisa do Font Awesome) */
+.metricItem input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+.metricItem input[type="checkbox"]:checked {
+  background-color: #313d4f;
+  border-color: #313d4f;
+}
+/* Garanta que o Font Awesome esteja carregado no seu index.html para este seletor funcionar */
+.metricItem input[type="checkbox"]:checked::after {
+  content: "\f00c"; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* --- Grid de Pré-Visualização --- */
+.previewGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.previewCard {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.previewCard h5 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.previewCard svg.chartPlaceholder {
+  width: 100%;
+  height: auto;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+/* Tabela Resumo */
+.summaryTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summaryTable th,
+.summaryTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.9rem;
+}
+
+.summaryTable thead {
+  background: #f9f9f9;
+}
+.summaryTable th {
+  font-weight: 700;
+  color: #333;
+}
+.summaryTable td {
+  color: #555;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1200px) {
+  .filterGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .previewGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .filterGrid {
+    grid-template-columns: 1fr;
+  }
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}

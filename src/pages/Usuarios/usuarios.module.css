@@ -1,0 +1,183 @@
+/* src/pages/Usuarios/usuarios.module.css */
+
+/* --- Botão Centralizado --- */
+.buttonContainer {
+  text-align: center;
+  margin: -15px 0 30px 0;
+}
+
+/* Estilo do botão "Adicionar Novo Usuário" */
+.btnAddUser {
+  background: linear-gradient(to bottom, #1a80ff, #0d70ff);
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(13, 112, 255, 0.4);
+  text-transform: none;
+  transition: all 0.3s ease;
+  color: white; /* Adicionado para garantir a cor do texto */
+  cursor: pointer; /* Adicionado para garantir o cursor */
+}
+.btnAddUser:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13, 112, 255, 0.5);
+}
+.btnAddUser i {
+  margin-right: 10px;
+}
+
+/* --- Seção de Filtros --- */
+.filtersSection {
+  /* Classe base (filters-section) */
+}
+.userFilters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 25px;
+  padding: 0;
+  background: none;
+  margin-bottom: 25px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterGroup label {
+  color: #333;
+  margin-bottom: 8px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.filterGroup select {
+  width: 100%;
+  background-color: #313d4f;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+}
+
+/* --- Container da Tabela --- */
+.tableContainer {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.tableTitle {
+  padding: 20px 25px;
+  background: #343a40;
+  color: #ffffff;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01px;
+  text-transform: none;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+/* Estilos da Tabela (usando a sintaxe correta do CSS Module) */
+.tableContainer table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableContainer th,
+.tableContainer td {
+  padding: 15px 25px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+}
+
+.tableContainer thead tr {
+  background: #343a40;
+  color: white;
+}
+.tableContainer th {
+  font-weight: 700;
+}
+
+.tableContainer tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+.tableContainer tbody tr:hover {
+  background: #f1f1f1;
+}
+
+/* Status do Usuário */
+.statusInativo {
+  color: #999;
+  font-style: italic;
+}
+/* Adicionando .statusAtivo (baseado no HTML) */
+.statusAtivo {
+  color: #2ecc71; /* Verde (Suposição de cor) */
+  font-weight: 600;
+}
+
+/* Ações do Usuário */
+.actions a {
+  font-size: 0.85rem;
+  color: #555;
+  text-decoration: underline;
+  margin: 0 4px; /* Adicionando espaçamento */
+}
+.actions a:hover {
+  color: #1a73e8;
+}
+
+/* --- Rodapé de Paginação --- */
+.paginationFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.pageInfo {
+  color: #555;
+}
+
+.pageNav a {
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.pageNav a:hover {
+  background-color: #e9eef8;
+}
+.pageNav a.prev {
+  margin-right: 10px;
+}
+.pageNav a.prev i {
+  margin-right: 5px;
+  font-size: 0.8rem;
+}
+.pageNav a.next i {
+  margin-left: 5px;
+  font-size: 0.8rem;
+}

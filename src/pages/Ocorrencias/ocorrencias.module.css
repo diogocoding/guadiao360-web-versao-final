@@ -1,0 +1,183 @@
+/* src/pages/Ocorrencias/ocorrencias.module.css */
+
+/* --- Filtros --- */
+.filtersSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterGroup label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.filterGroup select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: white;
+}
+
+.btnFilter {
+  background: #313d4f; /* Azul escuro/cinza do login */
+  color: white;
+  margin-left: auto; /* Empurra para a direita */
+  /* Estilos de .btn (global) são herdados no JSX */
+}
+
+/* --- Cartões de Status --- */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.statCard {
+  background: #fdfdfd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.count { /* Renomeado de .stat-card .count */
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.label { /* Renomeado de .stat-card .label */
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #777;
+  text-transform: uppercase;
+}
+
+/* Cores dos Círculos */
+.abertos .count {
+  background: #8e44ad;
+}
+.pendentes .count {
+  background: #f1c40f;
+}
+.cancelados .count {
+  background: #e74c3c;
+}
+.concluidos .count {
+  background: #2ecc71;
+}
+
+/* --- Tabela de Ocorrências --- */
+.tableSection {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  background: #ffffff; /* Adicionado para garantir o fundo branco da tabela */
+}
+
+/* Estilizando a tabela dentro do .tableSection, como fizemos em Auditoria */
+.tableSection table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableSection thead tr {
+  background: #343a40; /* Header da tabela (cinza escuro) */
+  color: white;
+}
+
+.tableSection th,
+.tableSection td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  white-space: nowrap; /* Adicionado para consistência */
+}
+
+.tableSection tbody tr:nth-child(even) {
+  background: #f9f9f9; /* Linha alternada */
+}
+
+.tableSection tbody tr:hover {
+  background: #f1f1f1;
+}
+
+/* Pílulas de Status */
+.statusPill {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusConcluido {
+  background: #2ecc71;
+}
+.statusAndamento {
+  background: #e67e22;
+}
+.statusCancelado {
+  background: #e74c3c;
+}
+
+/* Ícones da Tabela */
+.iconRed {
+  color: #e74c3c;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.btnDetails {
+  background: #1a73e8; /* Azul */
+  color: white;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  /* Herda estilos de .btn (global) */
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1200px) {
+  .statsSection {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 em telas menores */
+  }
+}
+
+@media (max-width: 600px) {
+  .statsSection {
+    grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+  }
+  .filtersSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btnFilter {
+    margin-left: 0;
+  }
+}

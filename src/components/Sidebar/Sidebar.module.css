@@ -1,0 +1,65 @@
+/* components/Sidebar/sidebar.module.css */
+.sidebar {
+  width: 240px;
+  background: #a20909; /* Vermelho escuro */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarHeader {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #c0392b;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+.sidebarNav {
+  flex-grow: 1;
+}
+
+.sidebarNav ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.sidebarNav li a,
+.sidebarFooter a {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  color: #f1f1f1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.sidebarNav li a i,
+.sidebarFooter a i {
+  width: 20px;
+  margin-right: 15px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.sidebarNav li a:hover {
+  background: #790909;
+}
+
+.sidebarNav li a.active {
+  background: #ffffff;
+  color: #a20909;
+  font-weight: 700;
+}
+
+.sidebarFooter {
+  border-top: 1px solid #c0392b;
+  padding: 10px 0;
+}

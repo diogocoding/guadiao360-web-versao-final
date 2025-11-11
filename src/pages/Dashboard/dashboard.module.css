@@ -1,0 +1,56 @@
+/* src/pages/Dashboard/dashboard.module.css */
+
+/* --- Fundo do Conteúdo --- */
+.mainContentOverride {
+  background-color: #f4f7fa; /* Fundo cinza claro */
+}
+
+/* --- Container do Gráfico --- */
+.chartContainer {
+  background: #e8e8e8; /* Fundo cinza do "card" */
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chartTitle {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* --- Placeholder do Gráfico --- */
+.chartPlaceholder {
+  width: 100%;
+  height: 350px; /* Altura do gráfico */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 20px;
+  border-bottom: 3px solid #555; /* Eixo X */
+}
+
+.barGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px; /* Espaço entre barras do mesmo grupo */
+}
+
+.bar {
+  width: 30px; /* Largura da barra */
+  border-radius: 4px 4px 0 0; /* Borda arredondada no topo */
+}
+
+/* Cores das Barras (baseado na imagem) */
+.barRed {
+  background-color: #e74c3c;
+}
+.barGreen {
+  background-color: #2ecc71;
+}
+.barBlue {
+  background-color: #34495e;
+}

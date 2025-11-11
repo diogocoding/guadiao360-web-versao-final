@@ -1,0 +1,163 @@
+/* src/pages/Auditoria/auditoria.module.css (Completo e Corrigido) */
+
+/* --- Container de Filtros (Layout 3-2-1) --- */
+.filtersContainer {
+    background: #E8E8E8;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    /* display: grid; FOI REMOVIDO DAQUI */
+}
+
+/* Nova classe para as linhas do grid */
+.filterRow {
+  display: grid;
+  gap: 20px 25px;
+  margin-bottom: 15px; /* Espaço entre as linhas de filtro */
+}
+
+/* Linha 1 (3 filtros) */
+.filterRow.top {
+  grid-template-columns: 1fr 1fr 1fr; /* 3 colunas */
+}
+
+/* Linha 2 (Filtros de Data - 3 colunas para alinhar) */
+.filterRow.date {
+  grid-template-columns: 1fr 1fr 1fr; /* 3 colunas (2 preenchidas, 1 vazia) */
+}
+
+/* Linha 3 (Botão - 1 coluna, alinhado à direita) */
+.filterRow.bottom {
+  display: flex;
+  justify-content: flex-end; /* Alinha o botão à direita */
+  margin-bottom: 0;
+}
+/* Adicione esta classe ao final do auditoria.module.css */
+
+/* Alinha o botão na base do 'filterItem' */
+.buttonGroup {
+    align-items: flex-end;
+}
+
+/* --- Estilos dos Itens de Filtro --- */
+.filterItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterItem label {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Estilo geral dos inputs */
+.filterItem input[type="text"],
+.filterItem select,
+.filterItem input[type="date"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  background: #fafafa;
+}
+
+/* Estilo escuro específico para os inputs de data */
+.filterItem input[type="date"] {
+    background-color: #313D4F;
+    color: white;
+    border: none;
+}
+
+/* Estilo do botão de filtro */
+.btnFilter {
+    padding: 12px 65px;
+    border: none;
+    border-radius: 5px;
+    background: #1a73e8;
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btnFilter:hover {
+    background: #105cba;
+}
+
+/* --- Container da Tabela (SINTAXE CORRIGIDA) --- */
+.tableContainer {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    background: #ffffff;
+}
+
+.tableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableContainer th,
+.tableContainer td {
+    padding: 15px 20px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.9rem;
+}
+
+.tableContainer thead tr {
+    background: #343a40;
+}
+
+.tableContainer th {
+    color: white;
+}
+
+.tableContainer td {
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- Rodapé de Paginação (Esta parte estava correta) --- */
+.paginationFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #E8E8E8;
+    font-size: 0.9rem;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.pageInfo {
+    color: #333;
+    font-weight: 700;
+}
+
+.pageNav {
+    display: flex;
+    gap: 10px;
+}
+
+.btnNav {
+    background: #1F2A38;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,131 @@
+/* styles/global.css */
+
+/* --- Configuração Global --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: "Nunito Sans", "Roboto", Arial, sans-serif;
+  background-color: #f4f7fa;
+}
+
+/* --- Container Principal (Layout de 2 Colunas) --- */
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh; /* Use min-height para garantir que a página toda seja preenchida */
+}
+
+/* ======================= */
+/* CONTEÚDO PRINCIPAL   */
+/* ======================= */
+.mainContent {
+  flex-grow: 1;
+  margin-left: 240px; /* Mesmo valor da largura do sidebar */
+  padding: 30px;
+  overflow-y: auto;
+  background: #ffffff; /* Fundo branco padrão */
+}
+
+/* Sobrescrito por arquivos específicos (ex: #f4f7fa para Auditoria e Ajustes) */
+.mainContent.grayBackground {
+    background-color: #f4f7fa;
+}
+
+/* --- Cabeçalho --- */
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.mainHeader h1 {
+  font-size: 2.2rem;
+  color: #333;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btnPrimary {
+  background: #1a73e8; /* Azul do botão */
+  color: white;
+}
+.btnPrimary i {
+  margin-right: 8px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f1f1f1;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+.userProfile i {
+  font-size: 1.2rem;
+  color: #555;
+}
+.userGreet {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Pílulas de Status (Ocorrências) */
+.statusPill {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusConcluido {
+  background: #2ecc71;
+}
+.statusAndamento {
+  background: #e67e22;
+} /* Laranja */
+.statusCancelado {
+  background: #e74c3c;
+}
+
+/* Ícones da Tabela */
+.iconRed {
+  color: #e74c3c;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.btnDetails {
+  background: #1a73e8;
+  color: white;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+/* Estilos de Responsividade Global - MANTIDOS COMO ESTÃO */
+/* ... (Mantenha as media queries do dashboard.css no final do global.css) */
