@@ -144,6 +144,15 @@
   background: #e74c3c;
 }
 
+.statusAberto {
+  background: #8e44ad; /* Roxo (Igual ao card de topo "ABERTOS") */
+}
+
+.statusPendente {
+  background: #f1c40f; /* Amarelo (Igual ao card de topo "PENDENTES") */
+  color: #333; /* Texto escuro para melhor contraste no amarelo */
+}
+
 /* Ícones da Tabela */
 .iconRed {
   color: #e74c3c;

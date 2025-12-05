@@ -87,13 +87,19 @@ const Usuarios = () => {
         const method = isEditing ? 'PUT' : 'POST';
 
         try {
-            await fetch(url, {
+            const response = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(currentUser)
             });
-            setShowModal(false);
-            fetchUsuarios(currentPage);
+            
+            if (response.ok) {
+                setShowModal(false);
+                fetchUsuarios(currentPage);
+                alert(isEditing ? "Usuário atualizado!" : "Usuário criado!");
+            } else {
+                alert("Erro ao salvar. Verifique se a API está rodando.");
+            }
         } catch (error) { console.error("Erro ao salvar:", error); }
     };
 
@@ -105,17 +111,14 @@ const Usuarios = () => {
 
     const openModalEdit = (user) => {
         setIsEditing(true);
-        // Mapeia os dados da tabela para o formato do formulário
-        // Precisamos encontrar os IDs correspondentes se eles não vierem na query principal (no SQL atual não vem, então teria que ajustar o SQL ou buscar pelo nome. Para simplificar, vou assumir que o usuário vai reselecionar no select se precisar).
-        // *Melhoria:* O ideal seria que o `api/usuarios` retornasse perfil_id e unidade_id também.
         setCurrentUser({ 
             id: user.id, 
             nome: user.nome_completo, 
             matricula: user.matricula, 
             posto: user.posto_graduacao, 
             status: user.status, 
-            perfil_id: '', // Você precisaria retornar perfil_id do backend para preencher isso auto
-            unidade_id: '' // Idem
+            perfil_id: user.perfil_id || '', 
+            unidade_id: user.unidade_id || '' 
         });
         setShowModal(true);
     };
@@ -164,7 +167,9 @@ const Usuarios = () => {
                             <option value="Soldado">Soldado</option>
                             <option value="Cabo">Cabo</option>
                             <option value="Sargento">Sargento</option>
-                            {/* ... adicione outros postos ... */}
+                            <option value="Tenente">Tenente</option>
+                            <option value="Capitão">Capitão</option>
+                            <option value="Coronel">Coronel</option>
                         </select>
                     </div>
                 </section>
@@ -220,37 +225,45 @@ const Usuarios = () => {
                     </footer>
                 </section>
 
-                {/* --- MODAL (SIMPLIFICADO) --- */}
+                {/* --- MODAL --- */}
                 {showModal && (
                     <div style={{
                         position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', 
-                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'
+                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999
                     }}>
-                        <div style={{background: 'white', padding: '20px', borderRadius: '8px', width: '400px'}}>
-                            <h3>{isEditing ? 'Editar Usuário' : 'Novo Usuário'}</h3>
+                        <div style={{background: 'white', padding: '25px', borderRadius: '8px', width: '400px', boxShadow: '0 4px 10px rgba(0,0,0,0.2)'}}>
+                            <h3 style={{marginBottom:'15px'}}>{isEditing ? 'Editar Usuário' : 'Novo Usuário'}</h3>
                             <form onSubmit={handleSaveUser} style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-                                <input placeholder="Nome" value={currentUser.nome} onChange={e => setCurrentUser({...currentUser, nome: e.target.value})} required />
-                                <input placeholder="Matrícula" value={currentUser.matricula} onChange={e => setCurrentUser({...currentUser, matricula: e.target.value})} required />
-                                <input placeholder="Posto/Graduação" value={currentUser.posto} onChange={e => setCurrentUser({...currentUser, posto: e.target.value})} required />
+                                <input placeholder="Nome" value={currentUser.nome} onChange={e => setCurrentUser({...currentUser, nome: e.target.value})} required style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}/>
+                                <input placeholder="Matrícula" value={currentUser.matricula} onChange={e => setCurrentUser({...currentUser, matricula: e.target.value})} required style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}/>
+                                <select value={currentUser.posto} onChange={e => setCurrentUser({...currentUser, posto: e.target.value})} required style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}>
+                                    <option value="">Selecione Posto</option>
+                                    <option value="Soldado">Soldado</option>
+                                    <option value="Cabo">Cabo</option>
+                                    <option value="Sargento">Sargento</option>
+                                    <option value="Tenente">Tenente</option>
+                                    <option value="Capitão">Capitão</option>
+                                    <option value="Coronel">Coronel</option>
+                                </select>
                                 
-                                <select value={currentUser.perfil_id} onChange={e => setCurrentUser({...currentUser, perfil_id: e.target.value})} required>
+                                <select value={currentUser.perfil_id} onChange={e => setCurrentUser({...currentUser, perfil_id: e.target.value})} required style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}>
                                     <option value="">Selecione Perfil</option>
                                     {perfis.map(p => <option key={p.id} value={p.id}>{p.nome_perfil}</option>)}
                                 </select>
 
-                                <select value={currentUser.unidade_id} onChange={e => setCurrentUser({...currentUser, unidade_id: e.target.value})} required>
+                                <select value={currentUser.unidade_id} onChange={e => setCurrentUser({...currentUser, unidade_id: e.target.value})} required style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}>
                                     <option value="">Selecione Unidade</option>
                                     {unidades.map(u => <option key={u.id} value={u.id}>{u.nome_unidade}</option>)}
                                 </select>
 
-                                <select value={currentUser.status} onChange={e => setCurrentUser({...currentUser, status: e.target.value})}>
+                                <select value={currentUser.status} onChange={e => setCurrentUser({...currentUser, status: e.target.value})} style={{padding:'8px', border:'1px solid #ccc', borderRadius:'4px'}}>
                                     <option value="Ativo">Ativo</option>
                                     <option value="Inativo">Inativo</option>
                                 </select>
 
-                                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '10px'}}>
-                                    <button type="button" onClick={() => setShowModal(false)}>Cancelar</button>
-                                    <button type="submit" style={{backgroundColor: '#1a73e8', color: 'white', border: 'none', padding: '5px 15px'}}>Salvar</button>
+                                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
+                                    <button type="button" onClick={() => setShowModal(false)} style={{padding:'10px 15px', border:'1px solid #ccc', background:'transparent', borderRadius:'4px', cursor:'pointer'}}>Cancelar</button>
+                                    <button type="submit" style={{backgroundColor: '#1a73e8', color: 'white', border: 'none', padding: '10px 20px', borderRadius:'4px', cursor:'pointer', fontWeight:'bold'}}>Salvar</button>
                                 </div>
                             </form>
                         </div>

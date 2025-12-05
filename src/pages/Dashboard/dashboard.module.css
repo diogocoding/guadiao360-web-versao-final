@@ -1,56 +1,261 @@
 /* src/pages/Dashboard/dashboard.module.css */
 
-/* --- Fundo do Conteúdo --- */
+/* --- Layout Principal --- */
 .mainContentOverride {
-  background-color: #f4f7fa; /* Fundo cinza claro */
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding-bottom: 50px;
 }
 
-/* --- Container do Gráfico --- */
-.chartContainer {
-  background: #e8e8e8; /* Fundo cinza do "card" */
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+/* --- 1. CARDS DO TOPO (4 Cards Compactos) --- */
+.topCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  width: 100%;
+  margin: 0 auto 30px auto;
 }
 
-.chartTitle {
+.kpiCard {
+  height: 90px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; /* Para alinhar icone e texto verticalmente */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.kpiCard:hover {
+  transform: translateY(-3px);
+}
+
+.cardIcon {
+  font-size: 1.8rem;
+  margin-bottom: 20px; /* Espaço para o texto não ficar em cima */
+  opacity: 0.9;
+}
+
+.cardText {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  position: absolute;
+  bottom: 10px;
+  white-space: nowrap;
+}
+
+/* --- Cores dos Cards (Gradients) --- */
+.cardRoxo {
+  background: #8e44ad; /* Vermelho (Aberto) */
+}
+.cardAmarelo {
+  background: #f1c40f; /* Amarelo (Pendente) */
+}
+.cardLaranja {
+  background: #e67e22; /* Laranja (Andamento) */
+}
+.cardVerde {
+  background: #2ecc71; /* Verde (Concluído) */
+}
+
+/* --- 2. GRID DO MEIO (Mapa + Recentes) --- */
+.middleSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Mapa ocupa 2/3 */
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.sectionCard {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #333;
-  text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* --- Placeholder do Gráfico --- */
-.chartPlaceholder {
+/* Mapa (Iframe) */
+.mapFrame {
   width: 100%;
-  height: 350px; /* Altura do gráfico */
+  height: 350px;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Lista de Recentes */
+.recentList {
   display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.recentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.recentItem:last-child {
+  border-bottom: none;
+}
+
+.fireIconRed {
+  color: #d32f2f;
+  font-size: 1.2rem;
+  margin-top: 4px;
+}
+
+.recentInfo h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 700;
+}
+.recentInfo p {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Badges de Status (Pílulas coloridas) */
+.statusBadge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Cores Específicas das Badges */
+.badgeVerde {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.badgeAmarelo {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+.badgeLaranja {
+  background: #ffe5d0;
+  color: #d35400; /* Laranja Escuro */
+  border: 1px solid #ffccb3;
+}
+.badgeVermelho {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* --- 3. GRID DE BAIXO (Equipes + Gráficos) --- */
+.bottomSection {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+}
+
+.chartsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Lista de Equipes */
+.teamList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.teamItem {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid #ccc;
+}
+.teamName {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #333;
+}
+.teamInfo {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Gráficos Visuais (Mockados) */
+.chartContainer {
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
   justify-content: space-around;
-  align-items: flex-end;
-  padding: 0 20px;
-  border-bottom: 3px solid #555; /* Eixo X */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
-
-.barGroup {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px; /* Espaço entre barras do mesmo grupo */
-}
-
-.bar {
-  width: 30px; /* Largura da barra */
-  border-radius: 4px 4px 0 0; /* Borda arredondada no topo */
-}
-
-/* Cores das Barras (baseado na imagem) */
 .barRed {
-  background-color: #e74c3c;
+  width: 20px;
+  background-color: #d32f2f;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s;
 }
-.barGreen {
-  background-color: #2ecc71;
+
+.donutChart {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(#d32f2f 0% 65%, #eee 65% 100%);
+  margin: 0 auto;
+  position: relative;
 }
-.barBlue {
-  background-color: #34495e;
+.donutHole {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1200px) {
+  .topCardsContainer {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 em telas médias */
+  }
+  .middleSection,
+  .bottomSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .topCardsContainer {
+    grid-template-columns: 1fr; /* 1 coluna mobile */
+  }
 }

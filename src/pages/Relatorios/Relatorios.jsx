@@ -1,13 +1,11 @@
-// pages/Relatorios/Relatorios.jsx
-import React, { useState } from 'react'; // Não precisamos mais do useEffect
+// src/pages/Relatorios/Relatorios.jsx
+import React, { useState } from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import MainHeader from '../../components/Header/MainHeader';
 import styles from './relatorios.module.css';
 import '../../styles/global.css';
 
-// ❌ REMOVIDOS: Imports do 'react-chartjs-2' e 'chart.js'
-
-// Função para formatar o tempo (continua necessária)
+// Função auxiliar para formatar tempo (ex: 75.5 -> 1h 16m)
 const formatarTempoMedio = (minutos) => {
     if (!minutos) return "N/A";
     const h = Math.floor(minutos / 60);
@@ -23,12 +21,13 @@ const Relatorios = () => {
     const [filtroRegiao, setFiltroRegiao] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
     
-    // 2. Estado APENAS para a tabela de resumo
-    const [summaryData, setSummaryData] = useState([]); // Começa vazio
-    
-    // 3. Função para buscar os dados (só busca o resumo)
+    // 2. Estado para a tabela de resumo
+    const [summaryData, setSummaryData] = useState([]); 
+
+    const API_URL = 'http://localhost:3001';
+
+    // 3. Função para buscar os dados da Tabela (Visualização)
     const handleGerarRelatorio = () => {
-        // Constrói os parâmetros da URL
         const params = new URLSearchParams();
         if (filtroTipo) params.append('tipo', filtroTipo);
         if (filtroRegiao) params.append('regiao', filtroRegiao);
@@ -38,16 +37,9 @@ const Relatorios = () => {
 
         const queryString = params.toString();
         
-        // API URL (ajuste para o ngrok se necessário)
-        const API_URL = 'http://localhost:3001';
-
-        // ❌ REMOVIDO: Fetch para o gráfico
-        
-        // B. Buscar dados para a Tabela de Resumo
         fetch(`${API_URL}/api/reports/resumo-por-tipo?${queryString}`)
             .then(res => res.json())
             .then(apiData => {
-                // Atualiza os dados do resumo
                 const dadosFormatados = apiData.map(item => ({
                     num: item.numero_ocorrencias,
                     tipo: item.tipo_ocorrencia,
@@ -59,6 +51,20 @@ const Relatorios = () => {
             .catch(err => console.error("Erro ao buscar dados do resumo:", err));
     };
 
+    // 4. NOVA FUNÇÃO: Exportar PDF ou CSV
+    const handleExport = (formato) => {
+        const params = new URLSearchParams();
+        if (filtroTipo) params.append('tipo', filtroTipo);
+        if (filtroRegiao) params.append('regiao', filtroRegiao);
+        if (filtroStatus) params.append('status', filtroStatus);
+        if (dataInicio) params.append('dataInicio', dataInicio);
+        if (dataFinal) params.append('dataFinal', dataFinal);
+        
+        params.append('formato', formato);
+        
+        // Abre a URL em uma nova aba, forçando o download
+        window.open(`${API_URL}/api/reports/export?${params.toString()}`, '_blank');
+    };
 
   return (
     <div className="dashboardContainer">
@@ -70,15 +76,15 @@ const Relatorios = () => {
           actions={<></>}
         />
         
-        {/* Botão "Gerar Relatórios" (conectado ao handler) */}
+        {/* Botão "Gerar Relatórios" (Carrega dados na tela) */}
         <section className={styles.buttonContainer}>
           <button className={`btn ${styles.btnAddUser}`} onClick={handleGerarRelatorio}>
             <i className="fa-solid"></i> Gerar Relatórios
           </button>
         </section>
 
-        {/* Container de Filtros (conectado aos states) */}
-<section className={styles.filtersContainerReports}>
+        {/* Container de Filtros */}
+        <section className={styles.filtersContainerReports}>
 
           {/* 1. FILTROS DE CIMA (OS 3 CLICÁVEIS) */}
           <div className={styles.filterGrid}>
@@ -109,11 +115,12 @@ const Relatorios = () => {
               <label htmlFor="status-1">Status:</label>
               <select id="status-1" value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value)}>
                 <option value="">Selecione o Status</option>
+                {/* Apenas status concluídos geram tempo médio */}
                 <option value="Concluído">Concluído</option>
                 <option value="Cancelado">Cancelado</option>
               </select>
             </div>
-          </div> {/* Fim do grid de cima */}
+          </div> 
 
           {/* 2. FILTROS DE BAIXO (PERÍODO) */}
           <div className={styles.filterGridBottom}>
@@ -126,51 +133,27 @@ const Relatorios = () => {
                 <label htmlFor="data-final">Período (Final):</label>
                 <input type="date" id="data-final" value={dataFinal} onChange={(e) => setDataFinal(e.target.value)} />
             </div>
-          </div> {/* Fim do grid de baixo */}
+          </div>
 
-
-          {/* Botões de Exportação (sem mudança) */}
+          {/* Botões de Exportação (Conectados ao handleExport) */}
           <div className={styles.exportButtons}>
-            <button className={`${styles.btnExport} ${styles.btnPdf}`}>
+            <button className={`${styles.btnExport} ${styles.btnPdf}`} onClick={() => handleExport('pdf')}>
               <i className="fa-solid fa-file-pdf"></i> Exportar (PDF)
             </button>
-            <button className={`${styles.btnExport} ${styles.btnCsv}`}>
+            <button className={`${styles.btnExport} ${styles.btnCsv}`} onClick={() => handleExport('csv')}>
               <i className="fa-solid fa-file-csv"></i> Exportar (CSV)
             </button>
           </div>
         </section>
         
-        {/* Container de Métricas (Estático, como solicitado) */}
-        <section className={styles.metricsContainer}>
-            <h4>Métricas a Incluir</h4>
-            <div className={styles.metricsGrid}>
-                {/* ... (Seu JSX de checkboxes estáticos aqui) ... */}
-                <div className={styles.metricItem}>
-                    <input type="checkbox" id="metrica1" />
-                    <label htmlFor="metrica1">Tempo Médio de Resposta</label>
-                </div>
-                <div className={styles.metricItem}>
-                    <input type="checkbox" id="metrica2" />
-                    <label htmlFor="metrica2">Tempo médio por Tipo</label>
-                </div>
-                <div className={styles.metricItem}>
-                    <input type="checkbox" id="metrica3" />
-                    <label htmlFor="metrica3">Uso de Recursos</label>
-                </div>
-                <div className={styles.metricItem}>
-                    <input type="checkbox" id="metrica4" />
-                    <label htmlFor="metrica4">Uso de Recursos</label>
-                </div>
-            </div>
-        </section>
+        {/* ❌ SEÇÃO DE MÉTRICAS REMOVIDA PARA GANHAR ESPAÇO */}
 
-        {/* Grid de Pré-Visualização (Gráfico estático, Tabela dinâmica) */}
+        {/* Grid de Pré-Visualização */}
         <section className={styles.previewGrid}>
           
           <div className={styles.previewCard}>
             <h5>Pré-Visualização:</h5>
-            
-            {/* 4. GRÁFICO SVG ESTÁTICO (exatamente como no HTML) */}
+            {/* Gráfico Estático (Placeholder SVG) */}
             <svg
               className={styles.chartPlaceholder}
               width="100%"
@@ -222,7 +205,6 @@ const Relatorios = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* 5. Mapeia os dados do state 'summaryData' */}
                 {summaryData.length > 0 ? (
                     summaryData.map((item, index) => (
                       <tr key={index}>
@@ -234,8 +216,8 @@ const Relatorios = () => {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="4" style={{textAlign: 'center'}}>
-                            Clique em "Gerar Relatórios" para ver o resumo.
+                        <td colSpan="4" style={{textAlign: 'center', padding: '20px', color: '#777'}}>
+                            Selecione os filtros e clique em "Gerar Relatórios +"
                         </td>
                     </tr>
                 )}
