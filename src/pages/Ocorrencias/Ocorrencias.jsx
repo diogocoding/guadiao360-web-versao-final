@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import MainHeader from '../../components/Header/MainHeader';
 import styles from './ocorrencias.module.css';
+import { API_BASE_URL } from '../../config/api';
 import '../../styles/global.css';
 
 const getStatusClass = (status) => {
@@ -61,12 +62,12 @@ const Ocorrencias = () => {
             tableParams.append('dataFinal', fim);
         }
 
-        fetch(`http://localhost:3001/api/ocorrencias?${tableParams.toString()}`)
+        fetch(`${API_BASE_URL}/api/ocorrencias?${tableParams.toString()}`)
             .then(response => response.json())
             .then(data => setOccurrenceData(data))
             .catch(error => console.error("Erro ocorrencias:", error));
             
-        fetch(`http://localhost:3001/api/ocorrencias/stats?${statsParams.toString()}`)
+        fetch(`${API_BASE_URL}/api/ocorrencias/stats?${statsParams.toString()}`)
             .then(response => response.json())
             .then(data => setStatsData(data))
             .catch(error => console.error("Erro stats:", error));

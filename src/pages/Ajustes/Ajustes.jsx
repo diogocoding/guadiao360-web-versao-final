@@ -1,7 +1,7 @@
 // pages/Ajustes/Ajustes.jsx
 import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import styles from './ajustes.module.css';
+import styles from './Ajustes.module.css';
 import '../../styles/global.css'; // Importação correta (global, sem atribuição)
 
 const Ajustes = () => {

@@ -1,6 +1,6 @@
 // components/Sidebar/Sidebar.jsx
 import { Link, useLocation } from 'react-router-dom';
-import styles from './sidebar.module.css';
+import styles from './Sidebar.module.css';
 import '../../styles/global.css'; // Importa estilos globais, se necessário
 
 const navItems = [

@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import MainHeader from '../../components/Header/MainHeader';
 import styles from './dashboard.module.css';
 import '../../styles/global.css';
+import { API_BASE_URL } from '../../config/api';
 
 const Dashboard = () => {
   // Estados para dados reais
@@ -14,19 +15,19 @@ const Dashboard = () => {
   // 1. Carregar Dados da API
   useEffect(() => {
     // KPI Stats (Aberto, Pendente, etc.)
-    fetch('http://localhost:3001/api/ocorrencias/stats')
+    fetch(`${API_BASE_URL}/api/ocorrencias/stats`)
       .then(res => res.json())
       .then(data => setStats(data))
       .catch(err => console.error("Erro stats:", err));
 
     // Ocorrências Recentes (Lista Lateral)
-    fetch('http://localhost:3001/api/dashboard/recentes')
+    fetch(`${API_BASE_URL}/api/dashboard/recentes`)
       .then(res => res.json())
       .then(data => setRecentes(data))
       .catch(err => console.error("Erro recentes:", err));
 
     // Tipos para gráfico (Opcional por enquanto)
-    fetch('http://localhost:3001/api/dashboard/tipos')
+    fetch(`${API_BASE_URL}/api/dashboard/tipos`)
       .then(res => res.json())
       .then(data => setTiposData(data))
       .catch(err => console.error("Erro tipos:", err));

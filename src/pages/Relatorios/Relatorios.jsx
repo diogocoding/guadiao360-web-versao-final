@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import MainHeader from '../../components/Header/MainHeader';
 import styles from './relatorios.module.css';
 import '../../styles/global.css';
+import { API_BASE_URL } from '../../config/api';
 
 // Função auxiliar para formatar tempo (ex: 75.5 -> 1h 16m)
 const formatarTempoMedio = (minutos) => {
@@ -24,8 +25,6 @@ const Relatorios = () => {
     // 2. Estado para a tabela de resumo
     const [summaryData, setSummaryData] = useState([]); 
 
-    const API_URL = 'http://localhost:3001';
-
     // 3. Função para buscar os dados da Tabela (Visualização)
     const handleGerarRelatorio = () => {
         const params = new URLSearchParams();
@@ -37,7 +36,7 @@ const Relatorios = () => {
 
         const queryString = params.toString();
         
-        fetch(`${API_URL}/api/reports/resumo-por-tipo?${queryString}`)
+        fetch(`${API_BASE_URL}/api/reports/resumo-por-tipo?${queryString}`)
             .then(res => res.json())
             .then(apiData => {
                 const dadosFormatados = apiData.map(item => ({
@@ -63,7 +62,7 @@ const Relatorios = () => {
         params.append('formato', formato);
         
         // Abre a URL em uma nova aba, forçando o download
-        window.open(`${API_URL}/api/reports/export?${params.toString()}`, '_blank');
+        window.open(`${API_BASE_URL}/api/reports/export?${params.toString()}`, '_blank');
     };
 
   return (

@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import MainHeader from '../../components/Header/MainHeader';
 import styles from './auditoria.module.css';
 import '../../styles/global.css';
+import { API_BASE_URL } from '../../config/api';
 
 const Auditoria = () => {
     
@@ -24,7 +25,7 @@ const Auditoria = () => {
         if (dataInicio) params.append('dataInicio', dataInicio);
         if (dataFinal) params.append('dataFinal', dataFinal);
         params.append('page', pageToFetch); 
-        fetch(`http://localhost:3001/api/auditoria?${params.toString()}`)
+        fetch(`${API_BASE_URL}/api/auditoria?${params.toString()}`)
             .then(response => response.json())
             .then(data => {
                 setLogData(data.data);
