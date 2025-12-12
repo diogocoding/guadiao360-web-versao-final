@@ -15,20 +15,31 @@ app.use(cors({ origin: '*' }));  // Permite qualquer origem (desenvolvimento)
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// --- BANCO DE DADOS ---
+// --- BANCO DE DADOS (CORREÇÃO PARA AMBIENTE DE PRODUÇÃO) ---
+
+// Lê as variáveis do Render (process.env.DB_HOST, etc.)
+// O Render exige que a API use a porta que o processo está ouvindo.
 const dbConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'admin', // Ajuste conforme sua senha local
-    database: 'gestao_usuarios_db'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    
+    // Adiciona a configuração de SSL, OBRIGATÓRIA para o Aiven
+    ssl: {
+        // 'rejectUnauthorized: false' é frequentemente necessário para ambientes de nuvem
+        rejectUnauthorized: false 
+    }
 });
 
 dbConnection.connect(err => {
     if (err) {
-        console.error('Erro ao conectar ao MySQL:', err.stack);
+        // O log agora mostra exatamente o que falhou ao tentar conectar com as credenciais da nuvem
+        console.error('Erro ao conectar ao MySQL:', err.message);
         return;
     }
-    console.log('Conectado ao MySQL com o ID ' + dbConnection.threadId);
+    console.log('Conectado ao MySQL da AIVEN com o ID ' + dbConnection.threadId);
 });
 
 // --- CONFIGURAÇÃO DE UPLOAD (MULTER) ---
@@ -54,7 +65,7 @@ const registrarAuditoria = (evento, detalhes, usuarioEmail = 'Sistema') => {
 };
 
 // ==================================================================
-//                              ROTAS
+//                            ROTAS
 // ==================================================================
 
 // --------------------------- LOGIN ---------------------------
@@ -198,7 +209,9 @@ app.post('/api/ocorrencias/:id/upload', upload.single('arquivo'), (req, res) => 
     const tipo = req.body.tipo; // Recebe do front
     if (!req.file) return res.status(400).send("Nenhum arquivo enviado.");
     
+    // ATENÇÃO: Se estiver em produção, este URL deve usar a URL do Render (process.env.RENDER_EXTERNAL_URL) em vez de localhost
     const urlArquivo = `http://localhost:3001/uploads/${req.file.filename}`;
+    
     // Correção aqui: coluna do banco é 'tipo_midia', não 'tipo'
     const sql = "INSERT INTO ocorrencia_midias (ocorrencia_id, tipo_midia, nome_arquivo, url_arquivo) VALUES (?, ?, ?, ?)";
     
