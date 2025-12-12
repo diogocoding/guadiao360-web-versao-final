@@ -13,85 +13,96 @@ import Usuarios from './pages/Usuarios/Usuarios';
 import Auditoria from './pages/Auditoria/Auditoria';
 import Ajustes from './pages/Ajustes/Ajustes';
 import DetalhesOcorrencia from './pages/DetalhesOcorrencia/DetalhesOcorrencia';
+import DataScience from './pages/DataScience/DataScience'; // [NEW] Import DataScience
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
+
         {/* --- ROTAS PÚBLICAS --- */}
         <Route path="/login" element={<Login />} />
 
         {/* --- ROTAS PROTEGIDAS (Exigem Login) --- */}
-        
+
         {/* Rota Raiz (Home) - Lista de Ocorrências */}
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <PrivateRoute>
               <Ocorrencias />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Dashboard Operacional */}
-        <Route 
-          path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Relatórios Analíticos */}
-        <Route 
-          path="/relatorios" 
+        <Route
+          path="/relatorios"
           element={
             <PrivateRoute>
               <Relatorios />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Gestão de Usuários */}
-        <Route 
-          path="/usuarios" 
+        <Route
+          path="/usuarios"
           element={
             <PrivateRoute>
               <Usuarios />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Auditoria e Logs */}
-        <Route 
-          path="/auditoria" 
+        <Route
+          path="/auditoria"
           element={
             <PrivateRoute>
               <Auditoria />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Configurações / Ajustes */}
-        <Route 
-          path="/ajustes" 
+        <Route
+          path="/ajustes"
           element={
             <PrivateRoute>
               <Ajustes />
             </PrivateRoute>
-          } 
+          }
+        />
+
+        {/* Análise de Dados - Streamlit */}
+        <Route
+          path="/datascience"
+          element={
+            <PrivateRoute>
+              <DataScience />
+            </PrivateRoute>
+          }
         />
 
         {/* Detalhes da Ocorrência (Rota Dinâmica com ID) */}
-        <Route 
-          path="/ocorrencia/:id" 
+        <Route
+          path="/ocorrencia/:id"
           element={
             <PrivateRoute>
               <DetalhesOcorrencia />
             </PrivateRoute>
-          } 
+          }
         />
 
         {/* Rota para qualquer URL desconhecida (Redireciona para home ou login) */}

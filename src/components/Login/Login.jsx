@@ -15,6 +15,13 @@ function Login() {
     setError('');
 
     try {
+      // BYPASS TEMPORÁRIO PARA TESTES
+      if (email === 'admin' && senha === 'admin') {
+        localStorage.setItem('user', JSON.stringify({ name: 'Admin Local', permissions: 'admin' }));
+        navigate('/');
+        return;
+      }
+
       const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -37,10 +44,10 @@ function Login() {
 
   const Logo = (
     <div className={styles.logoContainer}>
-      <img 
-        src="https://i.postimg.cc/28YgB6z9/Gemini-Generated-Image-tr1uhatr1uhatr1u-8.png" 
+      <img
+        src="https://i.postimg.cc/28YgB6z9/Gemini-Generated-Image-tr1uhatr1uhatr1u-8.png"
         alt="Brasão Guardião 360"
-        style={{ width: '200px', height: 'auto', marginBottom: '10px' }} 
+        style={{ width: '200px', height: 'auto', marginBottom: '10px' }}
       />
       <h1 className={styles.tituloGuardiao}>GUARDIÃO 360°</h1>
     </div>
@@ -75,7 +82,7 @@ function Login() {
             required
           />
 
-          {error && <p style={{color: 'red', fontSize: '0.9rem', textAlign: 'center'}}>{error}</p>}
+          {error && <p style={{ color: 'red', fontSize: '0.9rem', textAlign: 'center' }}>{error}</p>}
 
           <button type="submit" className={styles.botaoEntrar}>
             ENTRAR

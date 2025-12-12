@@ -9,6 +9,7 @@ const navItems = [
   { to: '/relatorios', icon: 'fa-file-lines', label: 'Relatórios' },
   { to: '/usuarios', icon: 'fa-users', label: 'Usuários' },
   { to: '/auditoria', icon: 'fa-magnifying-glass', label: 'Auditoria' },
+  { to: '/datascience', icon: 'fa-chart-pie', label: 'Análise de Dados' }, // [NEW]
   { to: '/ajustes', icon: 'fa-gear', label: 'Ajustes' },
 ];
 
