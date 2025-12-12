@@ -13,29 +13,28 @@ const port = 3001;
 // --- CONFIGURAÇÕES DO SERVIDOR ---
 app.use(cors({ origin: '*' }));  // Permite qualquer origem (desenvolvimento)
 app.use(express.json());
+
+// ATENÇÃO: Se estiver em produção, o Render pode não servir arquivos estáticos de uploads
+// de maneira simples. Este caminho é necessário para o local, mas complexo na nuvem.
 app.use('/uploads', express.static('uploads'));
 
 // --- BANCO DE DADOS (CORREÇÃO PARA AMBIENTE DE PRODUÇÃO) ---
-
-// Lê as variáveis do Render (process.env.DB_HOST, etc.)
-// O Render exige que a API use a porta que o processo está ouvindo.
+// Lê as variáveis do Render e configura o SSL necessário para Aiven
 const dbConnection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
+    host: process.env.DB_HOST, // mysq-...aivencloud.com
+    user: process.env.DB_USER,   // avnadmin
+    password: process.env.DB_PASSWORD, // Sua senha secreta
+    database: process.env.DB_NAME, // defaultdb
+    port: process.env.DB_PORT,   // 12924
     
-    // Adiciona a configuração de SSL, OBRIGATÓRIA para o Aiven
+    // Configuração de SSL OBRIGATÓRIA para o Aiven
     ssl: {
-        // 'rejectUnauthorized: false' é frequentemente necessário para ambientes de nuvem
         rejectUnauthorized: false 
     }
 });
 
 dbConnection.connect(err => {
     if (err) {
-        // O log agora mostra exatamente o que falhou ao tentar conectar com as credenciais da nuvem
         console.error('Erro ao conectar ao MySQL:', err.message);
         return;
     }
@@ -206,11 +205,12 @@ app.put('/api/ocorrencias/:id', (req, res) => {
 // Upload de Mídia (CORRIGIDO: 'tipo_midia')
 app.post('/api/ocorrencias/:id/upload', upload.single('arquivo'), (req, res) => {
     const ocorrenciaId = req.params.id;
-    const tipo = req.body.tipo; // Recebe do front
+    const tipo = req.body.tipo; 
     if (!req.file) return res.status(400).send("Nenhum arquivo enviado.");
     
-    // ATENÇÃO: Se estiver em produção, este URL deve usar a URL do Render (process.env.RENDER_EXTERNAL_URL) em vez de localhost
-    const urlArquivo = `http://localhost:3001/uploads/${req.file.filename}`;
+    // CORREÇÃO CRUCIAL: Usar a URL HTTPS do Render (RENDER_EXTERNAL_URL) em produção
+    const externalUrl = process.env.RENDER_EXTERNAL_URL || 'http://localhost:3001';
+    const urlArquivo = `${externalUrl}/uploads/${req.file.filename}`;
     
     // Correção aqui: coluna do banco é 'tipo_midia', não 'tipo'
     const sql = "INSERT INTO ocorrencia_midias (ocorrencia_id, tipo_midia, nome_arquivo, url_arquivo) VALUES (?, ?, ?, ?)";
